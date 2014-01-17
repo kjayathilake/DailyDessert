@@ -34,6 +34,8 @@
 		78B679571886799800BC21D8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B679561886799800BC21D8 /* User.m */; };
 		78B6795A1886C1E600BC21D8 /* AppScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B679591886C1E600BC21D8 /* AppScreen.m */; };
 		78B6795D1887084F00BC21D8 /* SummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B6795C1887084F00BC21D8 /* SummaryViewController.m */; };
+		78EFC8701889300400B6E65A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 78EFC86E1889300400B6E65A /* LICENSE */; };
+		78EFC8711889300400B6E65A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 78EFC86F1889300400B6E65A /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		78B679591886C1E600BC21D8 /* AppScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppScreen.m; sourceTree = "<group>"; };
 		78B6795B1887084F00BC21D8 /* SummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryViewController.h; sourceTree = "<group>"; };
 		78B6795C1887084F00BC21D8 /* SummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryViewController.m; sourceTree = "<group>"; };
+		78EFC86E1889300400B6E65A /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		78EFC86F1889300400B6E65A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +155,7 @@
 		788550781885403900648ABA /* DailyDessert */ = {
 			isa = PBXGroup;
 			children = (
+				78EFC86D18892FEF00B6E65A /* Licence */,
 				788550AA188540A000648ABA /* Util */,
 				788550A61885406B00648ABA /* Controller */,
 				788550A51885405800648ABA /* Model */,
@@ -237,6 +242,15 @@
 			name = Util;
 			sourceTree = "<group>";
 		};
+		78EFC86D18892FEF00B6E65A /* Licence */ = {
+			isa = PBXGroup;
+			children = (
+				78EFC86E1889300400B6E65A /* LICENSE */,
+				78EFC86F1889300400B6E65A /* README.md */,
+			);
+			name = Licence;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -312,7 +326,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78EFC8701889300400B6E65A /* LICENSE in Resources */,
 				7885507D1885403900648ABA /* InfoPlist.strings in Resources */,
+				78EFC8711889300400B6E65A /* README.md in Resources */,
 				788550881885403900648ABA /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
