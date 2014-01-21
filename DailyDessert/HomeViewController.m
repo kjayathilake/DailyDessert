@@ -70,7 +70,6 @@
 - (void)viewWillLayoutSubviews
 {
     CGFloat width = self.view.frame.size.width;
-    CGFloat height = self.view.frame.size.height;
     
     self.picker.frame = CGRectMake(10, 100, width - 20, 200);
     //self.btnStart.frame = CGRectMake(10, 350, width - 20, 50);

@@ -44,10 +44,10 @@
     
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     self.managedObjectContext = appDelegate.managedObjectContext;
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
@@ -59,7 +59,7 @@
     self.totalButton = [[UIBarButtonItem alloc]initWithTitle:@"Total : " style:UIBarButtonItemStyleDone target:self action:nil];
     
     self.toolbar = (UIToolbar *)[self.navigationController.view viewWithTag:101];
-        
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -91,10 +91,10 @@
     
     self.dessertList = [self getAllDesserts];
     [self.tableView reloadData];
-
+    
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [self.toolbar setItems:[NSArray arrayWithObjects:flexibleSpace, self.totalButton, flexibleSpace, nil]];
-
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -190,6 +190,7 @@
 - (void)stepperValueChanged:(id)sender
 {
     UIStepper *stepper = (UIStepper *)sender;
+    
     //NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:[[[event touchesForView:stepper]anyObject] locationInView:self.tableView]];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:stepper.tag inSection:0];
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -207,25 +208,17 @@
     
     if (mInfo == nil) {
         mInfo = [NSEntityDescription insertNewObjectForEntityForName:@"DessertInfo"
-                                                  inManagedObjectContext:self.managedObjectContext];
+                                              inManagedObjectContext:self.managedObjectContext];
         [self.user addInfosObject:mInfo];
         mInfo.date = self.date;
         mInfo.count = 0;
         mInfo.dessert = [self.dessertList objectAtIndex:indexPath.row];
         [self.infoList addObject:mInfo];
     }
-    
-    int count = [mInfo.count integerValue];
-    
+      
     mInfo.count = [NSNumber numberWithInt:(int)stepper.value];
     
-    if (count<[mInfo.count integerValue]) {
-        self.total += [mInfo.dessert.price floatValue];
-    }
-    else
-    {
-        self.total -= [mInfo.dessert.price floatValue];
-    }
+    self.total = [mInfo.dessert.price floatValue] * [mInfo.count integerValue];
     
     [self.totalButton setTitle:[NSString stringWithFormat:@"Sub Total : %f",self.total]];
     
@@ -234,6 +227,9 @@
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
+    
+    
+    
     
 }
 
@@ -282,39 +278,39 @@
         self.dessertList = [self getAllDesserts];
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+    }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
 
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
+ #pragma mark - Navigation
+ 
+ // In a story board-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ 
  */
 
 @end
