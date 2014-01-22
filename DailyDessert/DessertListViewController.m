@@ -180,7 +180,7 @@
             count = [info.count integerValue];
         }
     }
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d     :",count];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d     :",(int)count];
     cell.detailTextLabel.textAlignment = NSTextAlignmentCenter;
     stepper.value = count;
     
@@ -196,7 +196,7 @@
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
     //NSInteger count = [cell.detailTextLabel.text integerValue];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d     :",(NSInteger)stepper.value];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d     :",(int)stepper.value];
     cell.detailTextLabel.textAlignment = NSTextAlignmentCenter;
     DessertInfo *mInfo;
     
