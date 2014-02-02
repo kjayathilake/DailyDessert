@@ -1,22 +1,19 @@
 //
-//  DessertInfo.m
+//  PaidInfo.m
 //  DailyDessert
 //
 //  Created by Krishantha Jayathilake on 2014/02/02.
 //  Copyright (c) 2014 TechOne. All rights reserved.
 //
 
-#import "DessertInfo.h"
-#import "Dessert.h"
+#import "PaidInfo.h"
 #import "User.h"
 
 
-@implementation DessertInfo
+@implementation PaidInfo
 
-@dynamic count;
 @dynamic date;
-@dynamic id;
-@dynamic dessert;
+@dynamic paid;
 @dynamic user;
 
 @end

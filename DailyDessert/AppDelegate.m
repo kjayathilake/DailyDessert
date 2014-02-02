@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "LoginViewController.h"
+#import "HomeViewController.h"
 
 @implementation AppDelegate
 
@@ -19,7 +19,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    LoginViewController *login = [[LoginViewController alloc]initWithNibName:nil bundle:nil];
+    HomeViewController *login = [[HomeViewController alloc]initWithNibName:nil bundle:nil];
     UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:login];
     self.window.rootViewController = navigation;
     

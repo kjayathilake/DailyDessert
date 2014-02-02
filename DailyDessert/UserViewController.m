@@ -15,6 +15,7 @@
 @property (nonatomic) UIBarButtonItem *btnSave;
 @property (nonatomic) UIBarButtonItem *btnCancel;
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) BOOL edit;
 
 
 @end
@@ -34,7 +35,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"ADD USER";
+    
     
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     self.managedObjectContext = appDelegate.managedObjectContext;
@@ -53,8 +54,15 @@
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
     if (self.user == nil) {
+        self.navigationItem.title = @"ADD USER";
+        self.edit = NO;
         self.user = [NSEntityDescription insertNewObjectForEntityForName:@"User"
                                                   inManagedObjectContext:self.managedObjectContext];
+    }
+    else
+    {
+        self.navigationItem.title = @"EDIT USER";
+        self.edit = YES;
     }
 }
 
@@ -117,12 +125,17 @@
             textField.placeholder = @"required";
             textField.keyboardType = UIKeyboardTypeDefault;
             textField.returnKeyType = UIReturnKeyNext;
+            if (self.edit) {
+                textField.text = self.user.name;
+            }
         }
         else {
             textField.placeholder = @"abc@gmail.com";
             textField.keyboardType = UIKeyboardTypeEmailAddress;
             textField.returnKeyType = UIReturnKeyDone;
-            //textField.secureTextEntry = YES;
+            if (self.edit) {
+                textField.text = self.user.email;
+            }
         }
         textField.backgroundColor = [UIColor whiteColor];
         textField.autocorrectionType = UITextAutocorrectionTypeNo; // no auto correction support

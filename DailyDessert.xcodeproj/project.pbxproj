@@ -29,11 +29,12 @@
 		788550BF1885839100648ABA /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 788550BE1885839100648ABA /* ListViewController.m */; };
 		788550D21885D72400648ABA /* DessertListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 788550D11885D72400648ABA /* DessertListViewController.m */; };
 		788550D51885E57700648ABA /* DessertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 788550D41885E57700648ABA /* DessertViewController.m */; };
-		78B679511886799700BC21D8 /* DessertInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B679501886799700BC21D8 /* DessertInfo.m */; };
 		78B679541886799800BC21D8 /* Dessert.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B679531886799800BC21D8 /* Dessert.m */; };
-		78B679571886799800BC21D8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B679561886799800BC21D8 /* User.m */; };
 		78B6795A1886C1E600BC21D8 /* AppScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B679591886C1E600BC21D8 /* AppScreen.m */; };
 		78B6795D1887084F00BC21D8 /* SummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B6795C1887084F00BC21D8 /* SummaryViewController.m */; };
+		78B8FE0C189E8F720079751C /* DessertInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B8FE0B189E8F720079751C /* DessertInfo.m */; };
+		78B8FE15189E917F0079751C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B8FE14189E917F0079751C /* User.m */; };
+		78B8FE18189E91800079751C /* PaidInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B8FE17189E91800079751C /* PaidInfo.m */; };
 		78EFC8701889300400B6E65A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 78EFC86E1889300400B6E65A /* LICENSE */; };
 		78EFC8711889300400B6E65A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 78EFC86F1889300400B6E65A /* README.md */; };
 /* End PBXBuildFile section */
@@ -81,16 +82,18 @@
 		788550D11885D72400648ABA /* DessertListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DessertListViewController.m; sourceTree = "<group>"; };
 		788550D31885E57700648ABA /* DessertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DessertViewController.h; sourceTree = "<group>"; };
 		788550D41885E57700648ABA /* DessertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DessertViewController.m; sourceTree = "<group>"; };
-		78B6794F1886799700BC21D8 /* DessertInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DessertInfo.h; sourceTree = "<group>"; };
-		78B679501886799700BC21D8 /* DessertInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DessertInfo.m; sourceTree = "<group>"; };
 		78B679521886799800BC21D8 /* Dessert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dessert.h; sourceTree = "<group>"; };
 		78B679531886799800BC21D8 /* Dessert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dessert.m; sourceTree = "<group>"; };
-		78B679551886799800BC21D8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		78B679561886799800BC21D8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		78B679581886C1E600BC21D8 /* AppScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppScreen.h; sourceTree = "<group>"; };
 		78B679591886C1E600BC21D8 /* AppScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppScreen.m; sourceTree = "<group>"; };
 		78B6795B1887084F00BC21D8 /* SummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryViewController.h; sourceTree = "<group>"; };
 		78B6795C1887084F00BC21D8 /* SummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryViewController.m; sourceTree = "<group>"; };
+		78B8FE0A189E8F720079751C /* DessertInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DessertInfo.h; sourceTree = "<group>"; };
+		78B8FE0B189E8F720079751C /* DessertInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DessertInfo.m; sourceTree = "<group>"; };
+		78B8FE13189E917F0079751C /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		78B8FE14189E917F0079751C /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		78B8FE16189E91800079751C /* PaidInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaidInfo.h; sourceTree = "<group>"; };
+		78B8FE17189E91800079751C /* PaidInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaidInfo.m; sourceTree = "<group>"; };
 		78EFC86E1889300400B6E65A /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		78EFC86F1889300400B6E65A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -200,12 +203,14 @@
 			isa = PBXGroup;
 			children = (
 				788550841885403900648ABA /* DailyDessert.xcdatamodeld */,
-				78B679551886799800BC21D8 /* User.h */,
-				78B679561886799800BC21D8 /* User.m */,
+				78B8FE16189E91800079751C /* PaidInfo.h */,
+				78B8FE17189E91800079751C /* PaidInfo.m */,
+				78B8FE13189E917F0079751C /* User.h */,
+				78B8FE14189E917F0079751C /* User.m */,
+				78B8FE0A189E8F720079751C /* DessertInfo.h */,
+				78B8FE0B189E8F720079751C /* DessertInfo.m */,
 				78B679521886799800BC21D8 /* Dessert.h */,
 				78B679531886799800BC21D8 /* Dessert.m */,
-				78B6794F1886799700BC21D8 /* DessertInfo.h */,
-				78B679501886799700BC21D8 /* DessertInfo.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -348,14 +353,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78B679571886799800BC21D8 /* User.m in Sources */,
 				788550BF1885839100648ABA /* ListViewController.m in Sources */,
-				78B679511886799700BC21D8 /* DessertInfo.m in Sources */,
 				78B679541886799800BC21D8 /* Dessert.m in Sources */,
 				788550B91885655A00648ABA /* UserViewController.m in Sources */,
 				788550AD188540B300648ABA /* Colors.m in Sources */,
 				788550A91885408B00648ABA /* LoginViewController.m in Sources */,
+				78B8FE15189E917F0079751C /* User.m in Sources */,
 				788550831885403900648ABA /* AppDelegate.m in Sources */,
+				78B8FE0C189E8F720079751C /* DessertInfo.m in Sources */,
 				78B6795D1887084F00BC21D8 /* SummaryViewController.m in Sources */,
 				788550D21885D72400648ABA /* DessertListViewController.m in Sources */,
 				7885507F1885403900648ABA /* main.m in Sources */,
@@ -363,6 +368,7 @@
 				788550B01885416B00648ABA /* HomeViewController.m in Sources */,
 				788550D51885E57700648ABA /* DessertViewController.m in Sources */,
 				78B6795A1886C1E600BC21D8 /* AppScreen.m in Sources */,
+				78B8FE18189E91800079751C /* PaidInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

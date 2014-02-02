@@ -110,7 +110,7 @@
         }
     }    
     
-    [self.totalButton setTitle:[NSString stringWithFormat:@"Total : %f",self.total]];
+    [self.totalButton setTitle:[NSString stringWithFormat:@"Total : %.02f",self.total]];
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [self.toolbar setItems:[NSArray arrayWithObjects:self.summaryButton, flexibleSpace, self.totalButton, nil]];
 }
@@ -183,6 +183,11 @@
 
     cell.detailTextLabel.text = @"0";
     cell.textLabel.text = [(User *)[self.userList objectAtIndex:indexPath.row] name];
+    cell.tag = indexPath.row;
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressed:)];
+    longPress.minimumPressDuration = 1.0;
+    [cell addGestureRecognizer:longPress];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
@@ -199,6 +204,25 @@
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d",count];
     
     return cell;
+}
+
+- (void) longPressed:(UILongPressGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        UITableViewCell *cell = (UITableViewCell *)[sender view];
+        NSManagedObjectID *moid = [(NSManagedObject *)[self.userList objectAtIndex:cell.tag] objectID];
+        NSError *error;
+        User * user = (User *)[self.managedObjectContext existingObjectWithID:moid error:&error];
+        
+        UserViewController *vc = [[UserViewController alloc]initWithStyle:UITableViewStyleGrouped];
+        vc.user = user;
+        UINavigationController *navcont = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self presentViewController:navcont animated:YES completion:nil];
+
+        
+        //NSLog(@"long Pressed %@",user.name);
+    }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

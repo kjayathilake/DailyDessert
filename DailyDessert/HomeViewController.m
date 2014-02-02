@@ -50,8 +50,12 @@
     
     self.btnStart = [[UIBarButtonItem alloc]initWithTitle:@"NEXT" style:UIBarButtonItemStyleDone target:self action:@selector(startButtonClicked)];
     
-    self.toolbar = (UIToolbar *)[self.navigationController.view viewWithTag:101];
+    self.toolbar = [[UIToolbar alloc] init];
+    self.toolbar.barStyle = UIBarStyleDefault;
+    self.toolbar.tag = 101;
     
+    //Add the toolbar as a subview to the navigation controller.
+    [self.navigationController.view addSubview:self.toolbar];
 }
 
 - (void)viewWillAppear:(BOOL)animated

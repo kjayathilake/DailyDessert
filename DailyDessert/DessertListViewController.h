@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 
-@interface DessertListViewController : UITableViewController
+@interface DessertListViewController : UITableViewController<UIAlertViewDelegate>
 
 @property (nonatomic) User *user;
 @property (nonatomic) NSDate *date;

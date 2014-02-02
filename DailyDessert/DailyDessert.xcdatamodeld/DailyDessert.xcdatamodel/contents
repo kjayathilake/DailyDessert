@@ -13,15 +13,22 @@
         <relationship name="dessert" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Dessert" inverseName="infos" inverseEntity="Dessert" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="infos" inverseEntity="User" syncable="YES"/>
     </entity>
+    <entity name="PaidInfo" representedClassName="PaidInfo" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="paid" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="pInfos" inverseEntity="User" syncable="YES"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="infos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DessertInfo" inverseName="user" inverseEntity="DessertInfo" syncable="YES"/>
+        <relationship name="pInfos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PaidInfo" inverseName="user" inverseEntity="PaidInfo" syncable="YES"/>
     </entity>
     <elements>
         <element name="Dessert" positionX="0" positionY="0" width="0" height="0"/>
         <element name="DessertInfo" positionX="0" positionY="0" width="0" height="0"/>
         <element name="User" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="PaidInfo" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

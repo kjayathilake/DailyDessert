@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "Dessert.h"
 #import "DessertInfo.h"
+#import "PaidInfo.h"
 
 @interface DessertListViewController ()
 
@@ -21,7 +22,10 @@
 @property (nonatomic) DessertInfo *info;
 @property (nonatomic) UIToolbar *toolbar;
 @property (nonatomic) UIBarButtonItem *totalButton;
+@property (nonatomic) UIBarButtonItem *paidButton;
+@property (nonatomic) UIBarButtonItem *balanceButton;
 @property (nonatomic) CGFloat total;
+@property (nonatomic) CGFloat paid;
 
 @end
 
@@ -56,10 +60,58 @@
     self.btnAdd = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonClicked)];
     self.navigationItem.rightBarButtonItem = self.btnAdd;
     
-    self.totalButton = [[UIBarButtonItem alloc]initWithTitle:@"Total : " style:UIBarButtonItemStyleDone target:self action:nil];
+    self.totalButton = [[UIBarButtonItem alloc]initWithTitle:@"T : " style:UIBarButtonItemStyleDone target:self action:nil];
+    
+    self.paidButton = [[UIBarButtonItem alloc]initWithTitle:@"P :" style:UIBarButtonItemStyleDone target:self action:@selector(paidButtonClicked)];
+    
+    self.balanceButton = [[UIBarButtonItem alloc]initWithTitle:@"B : " style:UIBarButtonItemStyleDone target:self action:nil];
     
     self.toolbar = (UIToolbar *)[self.navigationController.view viewWithTag:101];
     
+}
+
+- (void)paidButtonClicked
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Set Payment" message:[NSString stringWithFormat:@"Amount to be paid is %.02f",self.total] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"OK"]) {
+        NSString *payment = [alertView textFieldAtIndex:0].text;
+        
+        PaidInfo *pInfo;
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];
+        
+        for (PaidInfo *info in self.user.pInfos) {
+            if ([[dateFormat stringFromDate:info.date] isEqualToString:[dateFormat stringFromDate:self.date]]) {
+                pInfo  = info;
+            }
+        }
+        
+        if (pInfo == nil) {
+            pInfo = [NSEntityDescription insertNewObjectForEntityForName:@"PaidInfo"
+                                                  inManagedObjectContext:self.managedObjectContext];
+            [self.user addPInfosObject:pInfo];
+            pInfo.date = self.date;
+        }
+        
+        pInfo.paid = [NSNumber numberWithFloat:[payment floatValue]];
+        self.paid = [payment floatValue];
+        
+        NSError *error;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        
+        
+        [self.paidButton setTitle:[NSString stringWithFormat:@"P : %.02f",self.paid]];
+        [self.balanceButton setTitle:[NSString stringWithFormat:@"B : %.02f",self.paid - self.total]];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -74,6 +126,7 @@
     
     int count = 0;
     self.total = 0;
+    self.paid = 0;
     
     for (DessertInfo *info in self.user.infos) {
         if ([[dateFormat stringFromDate:info.date] isEqualToString:[dateFormat stringFromDate:self.date]]) {
@@ -87,13 +140,26 @@
         }
     }
     
-    [self.totalButton setTitle:[NSString stringWithFormat:@"Sub Total : %f",self.total]];
+    [self.totalButton setTitle:[NSString stringWithFormat:@"T : %.02f",self.total]];
+    
+    for (PaidInfo *info in self.user.pInfos) {
+        if ([[dateFormat stringFromDate:info.date] isEqualToString:[dateFormat stringFromDate:self.date]]) {
+            self.paid = [info.paid floatValue];
+            [self.paidButton setTitle:[NSString stringWithFormat:@"P : %.02f",self.paid]];
+            [self.balanceButton setTitle:[NSString stringWithFormat:@"B : %.02f",self.paid - self.total]];
+        }
+    }
+    
+    
+    
+    
     
     self.dessertList = [self getAllDesserts];
     [self.tableView reloadData];
     
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [self.toolbar setItems:[NSArray arrayWithObjects:flexibleSpace, self.totalButton, flexibleSpace, nil]];
+    
+    [self.toolbar setItems:[NSArray arrayWithObjects:self.paidButton, flexibleSpace, self.totalButton, flexibleSpace, self.balanceButton, nil]];
     
 }
 
@@ -169,6 +235,12 @@
     [stepper addTarget:self action:@selector(stepperValueChanged:) forControlEvents:UIControlEventTouchUpInside];
     cell.accessoryView = stepper;
     
+    cell.tag = indexPath.row;
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressed:)];
+    longPress.minimumPressDuration = 1.0;
+    [cell addGestureRecognizer:longPress];
+    
     // Configure the cell...
     //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
@@ -185,6 +257,25 @@
     stepper.value = count;
     
     return cell;
+}
+
+- (void) longPressed:(UILongPressGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        UITableViewCell *cell = (UITableViewCell *)[sender view];
+        NSManagedObjectID *moid = [(NSManagedObject *)[self.dessertList objectAtIndex:cell.tag] objectID];
+        NSError *error;
+        Dessert * dessert = (Dessert *)[self.managedObjectContext existingObjectWithID:moid error:&error];
+        
+        DessertViewController *vc = [[DessertViewController alloc]initWithStyle:UITableViewStyleGrouped];
+        vc.dessert = dessert;
+        UINavigationController *navcont = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self presentViewController:navcont animated:YES completion:nil];
+        
+        
+        //NSLog(@"long Pressed %@",user.name);
+    }
+    
 }
 
 - (void)stepperValueChanged:(id)sender
@@ -220,16 +311,15 @@
     
     self.total = [mInfo.dessert.price floatValue] * [mInfo.count integerValue];
     
-    [self.totalButton setTitle:[NSString stringWithFormat:@"Sub Total : %f",self.total]];
+    [self.totalButton setTitle:[NSString stringWithFormat:@"T : %.02f",self.total]];
+    
+    [self.balanceButton setTitle:[NSString stringWithFormat:@"B : %.02f",self.paid - self.total]];
     
     
     NSError *error;
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
-    
-    
-    
     
 }
 
