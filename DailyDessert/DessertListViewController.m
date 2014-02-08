@@ -118,41 +118,7 @@
 {
     self.infoList = [[NSMutableArray alloc]init];
     
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    
-    // Convert date object to desired output format
-    //[dateFormat setDateFormat:@"EEEE MMMM d, YYYY"];
-    
-    int count = 0;
-    self.total = 0;
-    self.paid = 0;
-    
-    for (DessertInfo *info in self.user.infos) {
-        if ([[dateFormat stringFromDate:info.date] isEqualToString:[dateFormat stringFromDate:self.date]]) {
-            [self.infoList addObject:info];
-            
-            //NSLog(@"price = %f qty = %d total = %f",[info.dessert.price floatValue],[info.count integerValue],([info.count integerValue] * [info.dessert.price floatValue]));
-            
-            self.total += ([info.count integerValue] * [info.dessert.price floatValue]);
-            
-            count ++;
-        }
-    }
-    
-    [self.totalButton setTitle:[NSString stringWithFormat:@"T : %.02f",self.total]];
-    
-    for (PaidInfo *info in self.user.pInfos) {
-        if ([[dateFormat stringFromDate:info.date] isEqualToString:[dateFormat stringFromDate:self.date]]) {
-            self.paid = [info.paid floatValue];
-            [self.paidButton setTitle:[NSString stringWithFormat:@"P : %.02f",self.paid]];
-            [self.balanceButton setTitle:[NSString stringWithFormat:@"B : %.02f",self.paid - self.total]];
-        }
-    }
-    
-    
-    
-    
+    [self doCalculations];
     
     self.dessertList = [self getAllDesserts];
     [self.tableView reloadData];
@@ -309,25 +275,75 @@
       
     mInfo.count = [NSNumber numberWithInt:(int)stepper.value];
     
-    self.total = [mInfo.dessert.price floatValue] * [mInfo.count integerValue];
-    
-    [self.totalButton setTitle:[NSString stringWithFormat:@"T : %.02f",self.total]];
-    
-    [self.balanceButton setTitle:[NSString stringWithFormat:@"B : %.02f",self.paid - self.total]];
-    
-    
     NSError *error;
-    if (![self.managedObjectContext save:&error]) {
+    if (![self.managedObjectContext save:&error])
+    {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+    else
+    {
+        [self doCalculations];
     }
     
 }
 
+- (void) doCalculations
+{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    
+    self.total = 0;
+    self.paid = 0;
+    PaidInfo *pInfo;
+    
+    for (DessertInfo *info in self.user.infos)
+    {
+        if ([[dateFormat stringFromDate:info.date] isEqualToString:[dateFormat stringFromDate:self.date]])
+        {
+            [self.infoList addObject:info];
+            
+            //NSLog(@"price = %f qty = %d total = %f",[info.dessert.price floatValue],[info.count integerValue],([info.count integerValue] * [info.dessert.price floatValue]));
+            
+            self.total += ([info.count integerValue] * [info.dessert.price floatValue]);
+            
+        }
+    }
+    
+    [self.totalButton setTitle:[NSString stringWithFormat:@"T : %.02f",self.total]];
+    
+    for (PaidInfo *info in self.user.pInfos)
+    {
+        if ([[dateFormat stringFromDate:info.date] isEqualToString:[dateFormat stringFromDate:self.date]])
+        {
+            pInfo = info;
+            
+        }
+    }
+    
+    if (pInfo == nil) {
+        pInfo = [NSEntityDescription insertNewObjectForEntityForName:@"PaidInfo"
+                                              inManagedObjectContext:self.managedObjectContext];
+        [self.user addPInfosObject:pInfo];
+        pInfo.paid = 0;
+        pInfo.date = self.date;
+        NSError *error;
+        if (![self.managedObjectContext save:&error])
+        {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+    }
+    
+    self.paid = [pInfo.paid floatValue];
+    [self.paidButton setTitle:[NSString stringWithFormat:@"P : %.02f",self.paid]];
+    [self.balanceButton setTitle:[NSString stringWithFormat:@"B : %.02f",self.paid - self.total]];
+}
+
 - (NSArray *)getAllDesserts
 {
-    // initializing NSFetchRequest
+    // Initializing NSFetchRequest
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    //Setting Entity to be Queried
+    
+    // Setting Entity to be Queried
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Dessert"
                                               inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
